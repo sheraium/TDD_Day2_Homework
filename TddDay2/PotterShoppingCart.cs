@@ -16,17 +16,26 @@ namespace TddDay2
 
         public int NeedPay()
         {
-            var combination = this.GetCombination();
+            double minPay = this.orderedBooks.Values.Sum() * 100;
 
-            double result = 0;
-            foreach (var amount in combination)
+            int[] sequence = new[] { 5, 4, 3, 2 };
+
+            foreach (var startNumber in sequence)
             {
-                result += 100 * amount * GetDiscountRate(amount);
+                var combination = this.GetCombination(startNumber);
+
+                double result = 0;
+                foreach (var amount in combination)
+                {
+                    result += 100 * amount * GetDiscountRate(amount);
+                }
+                minPay = Math.Min(minPay, result);
             }
-            return (int)result;
+
+            return (int)minPay;
         }
 
-        private IEnumerable<int> GetCombination()
+        private IEnumerable<int> GetCombination(int startNumber)
         {
             List<int> combination = new List<int>();
 
@@ -35,15 +44,16 @@ namespace TddDay2
             while (amountArray.Any(amount => amount > 0))
             {
                 int booksAmount = 0;
-                for (int i = 0; i < amountArray.Length; i++)
+                for (int i = 0; i < startNumber; i++)
                 {
-                    if (amountArray[i] > 0)
+                    if (i < amountArray.Length)
                     {
                         booksAmount++;
                         amountArray[i]--;
                     }
                 }
                 combination.Add(booksAmount);
+                amountArray = amountArray.Where(x => x > 0).Select(x => x).ToArray();
             }
             return combination;
         }
