@@ -124,5 +124,19 @@ namespace TddDay2
             var expected = 640;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void IBuyAndNeedPayTest_第一集重複買兩次一本_價格200元()
+        {
+            var sut = new PotterShoppingCart();
+
+            var actual = sut
+                .IBuy("Harry Potter 1", 1)
+                .IBuy("Harry Potter 1", 1)
+                .NeedPay();
+
+            var expected = 200;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
