@@ -22,7 +22,7 @@ namespace TddDay2
     {
         public int IBuyAndNeedPay(string book, int amount)
         {
-            throw new NotImplementedException();
+            return 100;
         }
     }
 }
