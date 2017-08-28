@@ -28,6 +28,10 @@ namespace TddDay2
                 case 4:
                     discountRate = 0.8;
                     break;
+
+                case 5:
+                    discountRate = 0.75;
+                    break;
             }
 
             result = 100 * this.bookAmount * discountRate;
