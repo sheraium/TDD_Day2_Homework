@@ -16,8 +16,21 @@ namespace TddDay2
 
         public int NeedPay()
         {
+            var combination = this.GetCombination();
+
             double result = 0;
-            int[] amountArray = GetOrderedBooksAmountArray();
+            foreach (var amount in combination)
+            {
+                result += 100 * amount * GetDiscountRate(amount);
+            }
+            return (int)result;
+        }
+
+        private IEnumerable<int> GetCombination()
+        {
+            List<int> combination = new List<int>();
+
+            int[] amountArray = this.GetOrderedBooksAmountArray();
 
             while (amountArray.Any(amount => amount > 0))
             {
@@ -30,17 +43,9 @@ namespace TddDay2
                         amountArray[i]--;
                     }
                 }
-
-                result += 100 * booksAmount * GetDiscountRate(booksAmount);
+                combination.Add(booksAmount);
             }
-            return (int)result;
-        }
-
-        private int[] GetOrderedBooksAmountArray()
-        {
-            var booksAmountArray = new int[this.orderedBooks.Count];
-            Array.Copy(this.orderedBooks.Values.ToArray(), booksAmountArray, this.orderedBooks.Count);
-            return booksAmountArray;
+            return combination;
         }
 
         private double GetDiscountRate(int booksAmount)
@@ -63,12 +68,20 @@ namespace TddDay2
                 case 5:
                     discountRate = 0.75;
                     break;
+
                 default:
                     discountRate = 1.0;
                     break;
             }
 
             return discountRate;
+        }
+
+        private int[] GetOrderedBooksAmountArray()
+        {
+            var booksAmountArray = new int[this.orderedBooks.Count];
+            Array.Copy(this.orderedBooks.Values.ToArray(), booksAmountArray, this.orderedBooks.Count);
+            return booksAmountArray;
         }
     }
 }
