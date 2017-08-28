@@ -107,5 +107,22 @@ namespace TddDay2
             var expected = 460;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void IBuyAndNeedPayTest_選便宜算法_第1_2_3_4_5集買2_2_2_1_1本_價格640元()
+        {
+            var sut = new PotterShoppingCart();
+
+            var actual = sut
+                .IBuy("Harry Potter 1", 2)
+                .IBuy("Harry Potter 2", 2)
+                .IBuy("Harry Potter 3", 2)
+                .IBuy("Harry Potter 4", 1)
+                .IBuy("Harry Potter 5", 1)
+                .NeedPay();
+
+            var expected = 640;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
