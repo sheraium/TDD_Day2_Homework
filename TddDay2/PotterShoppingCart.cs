@@ -10,7 +10,10 @@ namespace TddDay2
 
         public PotterShoppingCart IBuy(string book, int amount)
         {
-            this.orderedBooks.Add(book, amount);
+            if (this.orderedBooks.ContainsKey(book))
+                this.orderedBooks[book] += amount;
+            else
+                this.orderedBooks[book] = amount;
             return this;
         }
 
