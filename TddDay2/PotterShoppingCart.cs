@@ -44,6 +44,18 @@ namespace TddDay2
 
             int[] amountArray = this.GetOrderedBooksAmountArray();
 
+            //若全部書本都兩本以上直接取書本數量
+            while (amountArray.Min() > 1)
+            {
+                for (int i = 0; i < amountArray.Length; i++)
+                {
+                    amountArray[i]--;
+                }
+                
+                combination.Add(amountArray.Length);
+            }
+
+            //計算書本組合
             while (amountArray.Any(amount => amount > 0))
             {
                 int booksAmount = 0;
