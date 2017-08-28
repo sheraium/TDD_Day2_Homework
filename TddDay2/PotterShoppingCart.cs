@@ -14,9 +14,16 @@ namespace TddDay2
         {
             double result = 0;
             double discountRate = 1;
-
-            if (this.bookAmount == 2) discountRate = 0.95;
-            else if (this.bookAmount == 3) discountRate = 0.9;
+            
+            switch (this.bookAmount)
+            {
+                case 2:
+                    discountRate = 0.95;
+                    break;
+                case 3:
+                    discountRate = 0.9;
+                    break;
+            }
 
             result = 100 * this.bookAmount * discountRate;
             return (int)result;
