@@ -11,18 +11,10 @@ namespace TddDay2
         {
             var sut = new PotterShoppingCart();
 
-            var actual = sut.IBuyAndNeedPay("Harry Potter 1", 1);
+            var actual = sut.IBuy("Harry Potter 1", 1).NeedPay();
 
             var expected = 100;
             Assert.AreEqual(expected, actual);
-        }
-    }
-
-    public class PotterShoppingCart
-    {
-        public int IBuyAndNeedPay(string book, int amount)
-        {
-            return 100;
         }
     }
 }
