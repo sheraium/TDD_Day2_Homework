@@ -6,6 +6,14 @@ namespace TddDay2
 
     public class PotterShoppingCart
     {
+        private readonly Dictionary<int, decimal> discountRate = new Dictionary<int, decimal>()
+        {
+            { 2, 0.95m },
+            { 3, 0.9m },
+            { 4, 0.8m },
+            { 5, 0.75m },
+        };
+
         private readonly Dictionary<string, int> orderedBooks = new Dictionary<string, int>();
 
         public PotterShoppingCart IBuy(string book, int amount)
@@ -17,9 +25,9 @@ namespace TddDay2
             return this;
         }
 
-        public int NeedPay()
+        public decimal NeedPay()
         {
-            double minPay = this.orderedBooks.Values.Sum() * 100;
+            decimal minPay = this.orderedBooks.Values.Sum() * 100;
 
             int[] sequence = new[] { 5, 4, 3, 2 };
 
@@ -27,7 +35,7 @@ namespace TddDay2
             {
                 var combination = this.GetCombination(startNumber);
 
-                double result = 0;
+                decimal result = 0;
                 foreach (var amount in combination)
                 {
                     result += 100 * amount * GetDiscountRate(amount);
@@ -35,7 +43,7 @@ namespace TddDay2
                 minPay = Math.Min(minPay, result);
             }
 
-            return (int)minPay;
+            return minPay;
         }
 
         private IEnumerable<int> GetCombination(int startNumber)
@@ -51,7 +59,7 @@ namespace TddDay2
                 {
                     amountArray[i]--;
                 }
-                
+
                 combination.Add(amountArray.Length);
             }
 
@@ -73,33 +81,13 @@ namespace TddDay2
             return combination;
         }
 
-        private double GetDiscountRate(int booksAmount)
+        private decimal GetDiscountRate(int booksAmount)
         {
-            double discountRate;
-            switch (booksAmount)
+            if (this.discountRate.ContainsKey(booksAmount))
             {
-                case 2:
-                    discountRate = 0.95;
-                    break;
-
-                case 3:
-                    discountRate = 0.9;
-                    break;
-
-                case 4:
-                    discountRate = 0.8;
-                    break;
-
-                case 5:
-                    discountRate = 0.75;
-                    break;
-
-                default:
-                    discountRate = 1.0;
-                    break;
+                return this.discountRate[booksAmount];
             }
-
-            return discountRate;
+            return 1;
         }
 
         private int[] GetOrderedBooksAmountArray()
