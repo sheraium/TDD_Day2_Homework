@@ -16,12 +16,12 @@ namespace TddDay2
 
         private readonly Dictionary<string, int> orderedBooks = new Dictionary<string, int>();
 
-        public PotterShoppingCart IBuy(string book, int amount)
+        public PotterShoppingCart IBuy(Book book, int amount)
         {
-            if (this.orderedBooks.ContainsKey(book))
-                this.orderedBooks[book] += amount;
+            if (this.orderedBooks.ContainsKey(book.ISBN))
+                this.orderedBooks[book.ISBN] += amount;
             else
-                this.orderedBooks[book] = amount;
+                this.orderedBooks[book.ISBN] = amount;
             return this;
         }
 

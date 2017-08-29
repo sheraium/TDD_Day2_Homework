@@ -2,15 +2,23 @@
 
 namespace TddDay2
 {
+    using System.Runtime.InteropServices;
+
     [TestClass]
     public class PotterShoppingCartTests
     {
+        Book HarryPotter1 = new Book() { Name = "Harry Potter 1", ISBN = "0001" };
+        Book HarryPotter2 = new Book() { Name = "Harry Potter 2", ISBN = "0002" };
+        Book HarryPotter3 = new Book() { Name = "Harry Potter 3", ISBN = "0003" };
+        Book HarryPotter4 = new Book() { Name = "Harry Potter 4", ISBN = "0004" };
+        Book HarryPotter5 = new Book() { Name = "Harry Potter 5", ISBN = "0005" };
+
         [TestMethod]
         public void IBuyAndNeedPayTest_第一集買一本_價格100元()
         {
             var sut = new PotterShoppingCart();
 
-            var actual = sut.IBuy("Harry Potter 1", 1).NeedPay();
+            var actual = sut.IBuy(HarryPotter1, 1).NeedPay();
 
             var expected = 100;
             Assert.AreEqual(expected, actual);
@@ -22,8 +30,8 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 2", 1)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter2, 1)
                 .NeedPay();
 
             var expected = 190;
@@ -36,9 +44,9 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 2", 1)
-                .IBuy("Harry Potter 3", 1)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter2, 1)
+                .IBuy(HarryPotter3, 1)
                 .NeedPay();
 
             var expected = 270;
@@ -51,10 +59,10 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 2", 1)
-                .IBuy("Harry Potter 3", 1)
-                .IBuy("Harry Potter 4", 1)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter2, 1)
+                .IBuy(HarryPotter3, 1)
+                .IBuy(HarryPotter4, 1)
                 .NeedPay();
 
             var expected = 320;
@@ -67,11 +75,11 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 2", 1)
-                .IBuy("Harry Potter 3", 1)
-                .IBuy("Harry Potter 4", 1)
-                .IBuy("Harry Potter 5", 1)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter2, 1)
+                .IBuy(HarryPotter3, 1)
+                .IBuy(HarryPotter4, 1)
+                .IBuy(HarryPotter5, 1)
                 .NeedPay();
 
             var expected = 375;
@@ -84,9 +92,9 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 2", 1)
-                .IBuy("Harry Potter 3", 2)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter2, 1)
+                .IBuy(HarryPotter3, 2)
                 .NeedPay();
 
             var expected = 370;
@@ -99,9 +107,9 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 2", 2)
-                .IBuy("Harry Potter 3", 2)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter2, 2)
+                .IBuy(HarryPotter3, 2)
                 .NeedPay();
 
             var expected = 460;
@@ -114,11 +122,11 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 2)
-                .IBuy("Harry Potter 2", 2)
-                .IBuy("Harry Potter 3", 2)
-                .IBuy("Harry Potter 4", 1)
-                .IBuy("Harry Potter 5", 1)
+                .IBuy(HarryPotter1, 2)
+                .IBuy(HarryPotter2, 2)
+                .IBuy(HarryPotter3, 2)
+                .IBuy(HarryPotter4, 1)
+                .IBuy(HarryPotter5, 1)
                 .NeedPay();
 
             var expected = 640;
@@ -131,8 +139,8 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 1)
-                .IBuy("Harry Potter 1", 1)
+                .IBuy(HarryPotter1, 1)
+                .IBuy(HarryPotter1, 1)
                 .NeedPay();
 
             var expected = 200;
@@ -145,11 +153,11 @@ namespace TddDay2
             var sut = new PotterShoppingCart();
 
             var actual = sut
-                .IBuy("Harry Potter 1", 4)
-                .IBuy("Harry Potter 2", 4)
-                .IBuy("Harry Potter 3", 4)
-                .IBuy("Harry Potter 4", 3)
-                .IBuy("Harry Potter 5", 3)
+                .IBuy(HarryPotter1, 4)
+                .IBuy(HarryPotter2, 4)
+                .IBuy(HarryPotter3, 4)
+                .IBuy(HarryPotter4, 3)
+                .IBuy(HarryPotter5, 3)
                 .NeedPay();
 
             var expected = 1390;
