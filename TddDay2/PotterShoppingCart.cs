@@ -27,19 +27,14 @@ namespace TddDay2
 
         public decimal NeedPay()
         {
+            //計算都是單本沒有折扣
             decimal minPay = this.orderedBooks.Values.Sum() * 100;
-
-            int[] sequence = new[] { 5, 4, 3, 2 };
-
-            foreach (var startNumber in sequence)
+            
+            //依據折扣書本數 計算組合 選取最低價錢的
+            foreach (var startNumber in this.discountRate.Keys)
             {
                 var combination = this.GetCombination(startNumber);
-
-                decimal result = 0;
-                foreach (var amount in combination)
-                {
-                    result += 100 * amount * GetDiscountRate(amount);
-                }
+                decimal result = combination.Sum(amount => 100 * amount * GetDiscountRate(amount));
                 minPay = Math.Min(minPay, result);
             }
 
@@ -50,7 +45,7 @@ namespace TddDay2
         {
             List<int> combination = new List<int>();
 
-            int[] amountArray = this.GetOrderedBooksAmountArray();
+            int[] amountArray = this.GetOrderedBooksAmountToIntArray();
 
             //若全部書本都兩本以上直接取書本數量
             while (amountArray.Min() > 1)
@@ -90,11 +85,9 @@ namespace TddDay2
             return 1;
         }
 
-        private int[] GetOrderedBooksAmountArray()
+        private int[] GetOrderedBooksAmountToIntArray()
         {
-            var booksAmountArray = new int[this.orderedBooks.Count];
-            Array.Copy(this.orderedBooks.Values.ToArray(), booksAmountArray, this.orderedBooks.Count);
-            return booksAmountArray;
+            return new List<int>(this.orderedBooks.Values.ToArray()).ToArray();
         }
     }
 }
