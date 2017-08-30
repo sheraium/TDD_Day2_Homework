@@ -165,7 +165,7 @@ namespace TddDay2
         }
 
         //演算法有誤無法通過測試
-        [Ignore]
+        //[Ignore]
         [TestMethod]
         public void IBuyAndNeedPayTest_選便宜算法_第1_2_3_4_5集買4_4_4_2_2本_價格1280元()
         {
@@ -180,6 +180,23 @@ namespace TddDay2
                 .NeedPay();
 
             var expected = 1280;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void IBuyAndNeedPayTest_選便宜算法_第1_2_3_4_5集買2_2_2_2_1本_價格1280元()
+        {
+            var sut = new PotterShoppingCart();
+
+            var actual = sut
+                .IBuy(HarryPotter1, 2)
+                .IBuy(HarryPotter2, 2)
+                .IBuy(HarryPotter3, 2)
+                .IBuy(HarryPotter4, 2)
+                .IBuy(HarryPotter5, 1)
+                .NeedPay();
+
+            var expected = 695;
             Assert.AreEqual(expected, actual);
         }
     }
