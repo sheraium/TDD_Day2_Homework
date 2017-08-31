@@ -28,24 +28,10 @@ namespace TddDay2
 
         public decimal NeedPay()
         {
-            //計算都是單本沒有折扣
-            decimal minPay = this.orderedBooks.Values.Sum() * 100;
-
-            //取得可能的折扣排列組合
-            var discountCombinations = GetCombination();
-
-            //計算費用 取最低價錢
-            foreach (var combination in discountCombinations)
-            {
-                decimal sum = 0;
-                foreach (var discounter_amount in combination)
-                {
-                    sum += 100 * discounter_amount.Key * discounter_amount.Value * GetDiscountRate(discounter_amount.Key);
-                }
-                minPay = Math.Min(minPay, sum);
-            }
-
-            return minPay;
+            //取得可能的折扣排列組合 計算費用 取最低價錢
+            return this.GetCombination().Select(
+                suites => suites.Select(
+                    suite => 100 * suite.Value * suite.Key * this.GetDiscountRate(suite.Key)).Sum()).Min();
         }
 
         //key=有折扣的書本數, value=該折扣書本數有的數量
